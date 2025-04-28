@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Device Tracker</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body, html {
+      margin: 0;
+      height: 100%;
+      font-family: sans-serif;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+    #error {
+      padding: 1em;
+      color: maroon;
+      text-align: center;
+      font-size: 2em;;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="error"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const API = 'http://localhost:3000';
+
+    async function main() {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get("code");
+      const errorDiv = document.getElementById("error");
+  
+      if (!code) {
+        errorDiv.textContent = "No code provided in the URL.";
+        return;
+      }
+  
+      try {
+        const res = await fetch(`${API}/track/${code}`);
+
+        if (!res.ok) {
+          throw new Error("Tu codigo de rastreo no es valido.");
+        }
+  
+        const data = await res.json();
+        const { lat, lng, device, timestamp } = data;
+  
+        const map = L.map('map').setView([lat, lng], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+  
+        const marker = L.marker([lat, lng]).addTo(map);
+        marker.bindPopup(`<strong>${device}</strong><br>${timestamp}`).openPopup();
+      } catch (err) {
+        document.getElementById("map").style.display = "none";
+        errorDiv.textContent = err.message;
+      }
+    }
+  
+    main();
+  </script>
+</body>
+</html>

@@ -81,7 +81,7 @@
                     class="tw-flex tw-h-full tw-w-max tw-gap-5 tw-text-base tw-text-white max-lg:tw-mt-[30px] max-lg:tw-flex-col max-lg:tw-place-items-end max-lg:tw-gap-5 lg:tw-mx-auto lg:tw-place-items-center"
                 >
                     <a class="header-links" href="#about"> Conocenos </a>
-                    <a class="header-links" href="#booking"> Rastrea tu paquete </a>
+                    <a class="header-links" href="#tracking"> Rastrea tu paquete </a>
                 </div>
                 <div
                     class="tw-flex tw-place-items-center tw-gap-[20px] tw-text-xl max-lg:tw-w-full max-lg:tw-place-content-center max-lg:!tw-text-white"
@@ -172,7 +172,7 @@
                 </div>
 
                 <div class="tw-mt-3 tw-flex tw-w-full tw-gap-[2%] max-md:tw-flex-col max-md:tw-gap-4">
-                    <a href="#booking" class="tw-flex tw-w-full tw-place-content-center tw-place-items-center tw-gap-2 tw-bg-[#000] tw-p-3 tw-text-[#fff] tw-transition-transform tw-duration-[0.3s] hover:tw-translate-x-1">
+                    <a href="#tracking" class="tw-flex tw-w-full tw-place-content-center tw-place-items-center tw-gap-2 tw-bg-[#000] tw-p-3 tw-text-[#fff] tw-transition-transform tw-duration-[0.3s] hover:tw-translate-x-1">
                         <span>Rastrea fácil</span>
                         <i class="bi bi-geo-alt-fill"></i>
                     </a>
@@ -213,7 +213,7 @@
 
         <section
             class="tw-flex tw-w-full tw-place-content-center tw-place-items-center tw-gap-[10%] tw-overflow-hidden tw-bg-[#EFEFEF] tw-p-4 max-md:tw-flex-col max-md:tw-px-2 lg:tw-px-[10%]"
-            id="booking"
+            id="tracking"
         >
             <div
                 class="tw-flex tw-h-[350px] tw-w-[350px] tw-overflow-hidden max-md:tw-hidden"
@@ -241,47 +241,20 @@
                         <div class="tw-flex tw-flex-col tw-gap-1">
                             <div class="tw-text-gray-500">Código de rastreo</div>
                             <input
+                                id="tracking-code"
                                 type="text"
                                 class="input"
-                                maxlength="10"
                                 required
-                                placeholder="0000-0000-0000"
+                                placeholder="Ingresa el código de rastreo aquí"
                             />
                         </div>
-                        <!-- <div class="tw-flex tw-flex-col tw-gap-1">
-                            <div class="tw-text-gray-500">Phone</div>
-                            <input
-                                type="text"
-                                class="input"
-                                required
-                                placeholder="phone"
-                            />
-                        </div> -->
-                        <!-- <div class="tw-flex tw-flex-col tw-gap-1">
-                            <div class="tw-text-gray-500">Email</div>
-                            <input
-                                type="email"
-                                class="input"
-                                required
-                                placeholder="email"
-                                id="email"
-                            />
-                        </div> -->
-
-                        <!-- <div class="tw-flex tw-w-full tw-flex-col tw-gap-2">
-                            <div class="tw-text-gray-500">Enquiry</div>
-                            <textarea
-                                class="input tw-max-h-[250px] tw-min-h-[40px] tw-w-full tw-resize-y"
-                                placeholder="enquiry"
-                            ></textarea>
-                        </div> -->
                     </div>
-
                     <button
                         type="submit"
+                        onclick="openTrackingCode(); return false;"
                         class="btn tw-ml-auto tw-mt-5 tw-transition-transform tw-duration-[0.3s] hover:tw-translate-x-2"
                     >
-                        <span>Localizar mi envio &nbsp;</span>
+                        <span>Rastrear mi flete &nbsp;</span>
                         <i class="bi bi-arrow-right"></i>
                     </button>
                 </form>
@@ -456,4 +429,11 @@
 
     <script src="./scripts/utils.js"></script>
     <script src="index.js"></script>
+
+    <script>
+        function openTrackingCode() {
+            const trackingCode = document.getElementById("tracking-code");
+            window.open(`track.html?code=${trackingCode.value}`,"_blank");
+        }
+    </script>
 </html>
